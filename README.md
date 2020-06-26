@@ -1,5 +1,9 @@
+## Prerequisits
 
+* running Kafka instance
+* running confluent schema registry 
 
+You can use the docker-compose repository for this stuff.
 
 ## Links
 
