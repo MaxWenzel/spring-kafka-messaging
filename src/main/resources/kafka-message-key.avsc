@@ -1,0 +1,10 @@
+{
+    "type": "record",
+    "name": "KafkaMessageKey",
+    "namespace": "org.devzone.messagebroker.schema",
+    "fields": [
+     {
+        "name": "id",
+        "type": "string"
+    }]
+}
