@@ -1,12 +1,12 @@
 package org.devzone.messagebroker.controller;
 
+import org.devzone.messagebroker.model.MessageDTO;
 import org.devzone.messagebroker.producer.MessageProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MessageController {
@@ -19,11 +19,10 @@ public class MessageController {
         this.messageProducer = messageProducer;
     }
 
-    @PostMapping("/messages/{sender}/{receiver}/{payload}")
-    public ResponseEntity<Object> sendMessage(@PathVariable String sender, @PathVariable String receiver,
-                                              @PathVariable String payload) {
-        logger.info("Received new message");
-        messageProducer.produceKafkaMessage(sender, receiver, payload);
+    @PostMapping("/messages/{sender}")
+    public ResponseEntity<Object> sendMessage(@PathVariable String sender, @RequestBody MessageDTO message) {
+        logger.info("Received new message for Reciever {}", message.getReceiver());
+        messageProducer.produceKafkaMessage(sender, message.getReceiver(), message.getMessage());
         return ResponseEntity.ok().build();
     }
 }
